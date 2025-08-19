@@ -145,6 +145,10 @@ pip install -r requirements.txt
 ```
 OPENROUTER_API_KEY=your_openrouter_api_key
 ```
+### pretrained 
+
+Download the pre-trained model from ![Here](https://drive.google.com/drive/folders/17MeutRkhPiHjks8zz1jKkYKucLvXXaPp) and paste it under data/models.
+
 
 ## Project Structure
 
