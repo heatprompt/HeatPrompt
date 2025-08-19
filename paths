@@ -1,0 +1,68 @@
+heatprompt-vlm/
+│
+├── README.md                  # Overview of project, setup, and usage
+├── LICENSE                    # MIT or other license for your code
+├── requirements.txt           # Python dependencies
+├── .gitignore
+│
+├── data/                      # Data storage (not versioned if large)
+│   ├── annotations/                   # Original raw images, masks, and annotations
+│   ├── atlas_data/
+│   ├── embeddings/                     # Preprocessed features, cleaned datasets
+│   └── README.md              # Explain how data is stored and license info
+│
+├── scripts/                   # Python automation & training scripts
+│   ├── 01_download_data.py    # Example: AOI image/mask downloader (Leaflet+Esri)
+│   ├── 02_preprocess.py       # Cleaning, resizing, feature extraction
+│   ├── 03_train_baseline.py   # Train GIS-only model
+│   ├── 04_train_vlm.py        # Train VLM-augmented models (CLIP, GPT-4o, Qwen)
+│   ├── 05_evaluation.py       # Metrics, t-tests, summary tables
+│   └── utils.py               # Helper functions (e.g., stratified splits)
+│
+├── webtools/                  # Leaflet/HTML-based tools for manual collection
+│   ├── dual_map_mask.html     # Your dual-map mask tool (public Esri tiles)
+│   ├── capture_with_key.html  # Version that uses ArcGIS API key
+│   └── assets/                # JS/CSS dependencies if needed locally
+│
+├── models/                    # Saved model checkpoints, configs
+│
+├── notebooks/                 # Jupyter notebooks for analysis/experiments
+│   ├── exploratory_data.ipynb
+│   ├── model_comparison.ipynb
+│   └── feature_visualization.ipynb
+│
+├── results/                   # Generated results
+│   ├── figures/               # PNG/PDF plots for the paper
+│   ├── tables/                # CSV/LaTeX table outputs
+│   ├── evaluation.json        # Raw evaluation metrics
+│   └── co2_comparison.txt     # Energy/emission results
+│
+└── paper/                     # Paper-related materials
+    ├── main.tex                # Main paper source
+    ├── supplementary.tex       # Supplementary material
+    ├── bibliography.bib        # BibTeX references
+    └── figures/                # Paper figure exports
+
+
+
+ # Upload and get file_id
+        file_id = create_file(masked_image_path)
+
+        response = client.responses.create(
+            model="gpt-4o",
+            temperature=temperature,
+            input=[{
+                "role": "user",
+                "content": [
+                    {"type": "input_text", "text": system_prompt},
+                    {"type": "input_image", "file_id": file_id},
+                ],
+            }],
+        )
+
+        # Store result
+        annotations[key] = response.output_text
+
+        # Save after each success
+        with open(annotations_file, "w") as f:
+            json.dump(annotations, f, indent=2)
