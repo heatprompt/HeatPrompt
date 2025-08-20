@@ -147,8 +147,8 @@ OPENROUTER_API_KEY=your_openrouter_api_key
 ```
 ### Pretrained 
 
-Experimentation is done within this bounding box coordinates: 7.711388,49.410640,7.812840,49.468572
-Download the pre-trained model from [Here](https://drive.google.com/drive/folders/17MeutRkhPiHjks8zz1jKkYKucLvXXaPp) and paste it under data/models.
+- Experimentation is done within this bounding box coordinates: 7.711388,49.410640,7.812840,49.468572.
+- Download the pre-trained model from [Here](https://drive.google.com/drive/folders/17MeutRkhPiHjks8zz1jKkYKucLvXXaPp) and paste it under data/models.
 
 
 ## Project Structure
